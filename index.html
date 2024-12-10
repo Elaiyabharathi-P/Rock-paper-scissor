@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rock, Paper, and Scissor</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #333;
+        color: white;
+      }
+      header {
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+      }
+      header h1 {
+        margin: 0;
+      }
+      #content {
+        padding: 20px;
+        text-align: center;
+      }
+      button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        background-color: #4caf50;
+        color: #fff;
+        cursor: pointer;
+      }
+      .btn {
+        padding-top: 5%;
+      }
+      button:hover {
+        background-color: #3e8e41;
+      }
+      #playAgain {
+        background-color: #666;
+        color: #fff;
+      }
+      #playAgain:hover {
+        background-color: #555;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <center><h1>Rock, Paper, and Scissor</h1></center>
+      <div>
+        <div class="btn">
+          <button id="rock" onclick="play('Rock')">Rock</button>
+          <button id="paper" onclick="play('Paper')">Paper</button>
+          <button id="Scissor" onclick="play('Scissor')">Scissor</button>
+          <button id="playAgain" onclick="playAgain()">Play Again</button>
+        </div>
+      </div>
+    </header>
+    <div id="content" style="padding-top: 10%"></div>
+
+    <script>
+      var computerscore = 0;
+      var Yourscore = 0;
+      let content = document.getElementById("content");
+
+      function play(choice) {
+        content.innerHTML = ""; // clear previous output
+        var humanChoice = choice;
+        document.getElementById("playAgain").disabled = false; // enable play again button
+        content.innerHTML += "You choose " + humanChoice + "<br>";
+        computer(humanChoice);
+      }
+
+      function computer(humanChoice) {
+        const choice = Math.floor(Math.random() * 3) + 1;
+        let computerChoice;
+        if (choice == 1) {
+          computerChoice = "Rock";
+        } else if (choice == 2) {
+          computerChoice = "Paper";
+        } else {
+          computerChoice = "Scissor";
+        }
+        content.innerHTML += "Computer choose " + computerChoice + "<br>";
+        compare(humanChoice, computerChoice);
+      }
+
+      function compare(human, machine) {
+        if (human == machine) {
+          content.innerHTML += "It's a tie!<br>";
+          content.innerHTML += "Your Score :" + Yourscore + "<br>";
+          content.innerHTML += "Computer Score :" + computerscore;
+        } else {
+          if (human == "Rock") {
+            if (machine == "Scissor") {
+              content.innerHTML += "Rock smashes Scissor, You win!<br>";
+              ++Yourscore;
+            } else {
+              content.innerHTML += "Paper covers Rock, Computer wins!<br>";
+              ++computerscore;
+            }
+            content.innerHTML += "Your Score :" + Yourscore + "<br>";
+            content.innerHTML += "Computer Score :" + computerscore;
+          } else if (human == "Paper") {
+            if (machine == "Rock") {
+              content.innerHTML += "Paper covers Rock, You win!<br>";
+              ++Yourscore;
+            } else {
+              content.innerHTML += "Scissor cuts Paper, Computer wins!<br>";
+              ++computerscore;
+            }
+            content.innerHTML += "Your Score :" + Yourscore + "<br>";
+            content.innerHTML += "Computer Score :" + computerscore;
+          } else {
+            if (machine == "Paper") {
+              content.innerHTML += "Scissor cuts Paper, You win!<br>";
+              ++Yourscore;
+            } else {
+              content.innerHTML += "Rock smashes Scissor, Computer wins!<br>";
+              ++computerscore;
+            }
+            content.innerHTML += "Your Score :" + Yourscore + "<br>";
+            content.innerHTML += "Computer Score :" + computerscore;
+          }
+        }
+      }
+
+      function playAgain() {
+        computerscore = "";
+        Yourscore = "";
+        content.innerHTML = ""; // clear output
+        document.getElementById("playAgain").disabled = true; // disable play again button
+      }
+    </script>
+  </body>
+</html>
